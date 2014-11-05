@@ -9,7 +9,9 @@
                 <title>#{msg.books}</title>
             </ui:define>
             <ui:define name="content">
-                <h:link outcome="list_wieze.xhtml" value="#{msg.books}"/>
+                <h:link outcome="wieze/list_wieze.xhtml" value="#{msg.books}"/>
+                <br/>
+                <h:link outcome="admin/list_users.xhtml" value="Użytkownicy"/>
             </ui:define>
         </ui:composition>
     </body>

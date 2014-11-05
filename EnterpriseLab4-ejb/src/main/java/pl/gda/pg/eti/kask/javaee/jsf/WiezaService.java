@@ -20,7 +20,11 @@ import java.io.OutputStream;
 import java.io.Serializable;
 import java.util.*;
 import java.util.logging.Level;
+import javax.annotation.security.DeclareRoles;
+import javax.annotation.security.RolesAllowed;
+import javax.ejb.EJB;
 import javax.ejb.LocalBean;
+import javax.ejb.SessionContext;
 import javax.ejb.Stateless;
 
 /**
@@ -30,10 +34,18 @@ import javax.ejb.Stateless;
 @Stateless
 @LocalBean
 @Log
+@DeclareRoles(value = {"Admin", "User"})
 public class WiezaService implements Serializable {
 
   @PersistenceContext
   EntityManager em;
+  
+  @Resource
+  SessionContext sctx;
+
+//  @EJB
+//  UserService userService;
+  
 //
 //  @Resource
 //  UserTransaction userTransaction;
@@ -67,14 +79,17 @@ public class WiezaService implements Serializable {
     return findAllMagowie();
   }
 
+  @RolesAllowed({"Admin", "User"})
   public List<Wieza> findAllWieze() {
     return em.createNamedQuery("Wieza.findAll").getResultList();
   }
 
+  @RolesAllowed({"Admin", "User"})
   public Wieza findWieza(int id) {
     return em.find(Wieza.class, id);
   }
 
+  @RolesAllowed({"Admin", "User"})
   public void removeWieza(Wieza wieza) {
 //    try {
 //      userTransaction.begin();
@@ -95,6 +110,7 @@ public class WiezaService implements Serializable {
 
   }
 
+  @RolesAllowed({"Admin", "User"})
   public void saveWieza(Wieza wieza) {
 //    try {
 //      userTransaction.begin();
@@ -115,19 +131,23 @@ public class WiezaService implements Serializable {
 //    }
   }
   
+  @RolesAllowed({"Admin", "User"})
   public void trenujMagow(int incr) {
     em.createNamedQuery("Mag.increaseManaForAll").setParameter("incr", incr).
         executeUpdate();
   }
 
+  @RolesAllowed({"Admin", "User"})
   public List<Mag> findAllMagowie() {
     return em.createNamedQuery("Mag.findAll").getResultList();
   }
 
+  @RolesAllowed({"Admin", "User"})
   public Mag findMag(int id) {
     return em.find(Mag.class, id);
   }
 
+  @RolesAllowed({"Admin", "User"})
   public void removeMag(Mag mag) {
 //    try {
 //      userTransaction.begin();
@@ -147,6 +167,7 @@ public class WiezaService implements Serializable {
 //    }
   }
 
+  @RolesAllowed({"Admin", "User"})
   public void saveMag(Mag mag) {
 //    try {
 //      userTransaction.begin();
@@ -167,6 +188,7 @@ public class WiezaService implements Serializable {
 //    }
   }
 
+  @RolesAllowed({"Admin", "User"})
   public void marshalSwiat(OutputStream out) {
     try {
       JAXBContext jaxbContext = JAXBContext.newInstance(ObjectFactory.class.getPackage().getName());

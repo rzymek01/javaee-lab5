@@ -60,6 +60,10 @@ public class Wieza {
   @GeneratedValue(strategy = GenerationType.IDENTITY)
   @Column
   protected int id;
+  
+  @ManyToOne
+  @JoinColumn(name = "owner", referencedColumnName = "id")
+  private User owner;
 
   /**
    * Gets the value of the mag property.
