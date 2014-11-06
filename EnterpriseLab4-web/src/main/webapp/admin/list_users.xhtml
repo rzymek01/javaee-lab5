@@ -10,19 +10,19 @@
                 <title>Użytkownicy</title>
             </ui:define>
             <ui:define name="content">
-                lista
-<!--                <h:dataTable value="#{listUsers.readers}" var="reader">
+                <h:dataTable value="#{listUsers.users}" var="user">
                     <h:column>
-                        <h:outputText value="#{reader.key.login}"/>
+                        <h:outputText value="#{user.login}"/>
                     </h:column>
                     <h:column>
-                        <h:dataTable value="#{reader.value}" var="author">
-                            <h:column>
-                                <h:outputText value="#{author.name} #{author.surname}"/>
-                            </h:column>
-                        </h:dataTable>
+                        <h:outputText value="#{user.group}"/>
                     </h:column>
-                </h:dataTable>-->
+                    <h:column>
+                        <h:button value="Zmień hasło" outcome="/wieze/edit_user.xhtml">
+                            <f:param name="userId" value="#{user.id}"/>
+                        </h:button>
+                    </h:column>
+                </h:dataTable>
                 <h:button value="#{msg.back}" outcome="/index.xhtml"/>
             </ui:define>
         </ui:composition>

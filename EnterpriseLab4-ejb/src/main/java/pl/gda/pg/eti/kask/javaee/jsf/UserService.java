@@ -26,11 +26,13 @@ public class UserService {
     @PersistenceContext
     EntityManager em;
 
-//    public User findUser(String login) {
-//        CriteriaBuilder builder = em.getCriteriaBuilder();
-//        CriteriaQuery<User> query = builder.createQuery(User.class);
-//        return em.createQuery(query.where(query.from(User.class).get(User_.login).in(login))).getSingleResult();
-//    }
+    public User findUser(int id) {
+        return em.find(User.class, id);
+    }
+    
+    public User findUserByLogin(String login) {
+        return (User)em.createNamedQuery("User.findByLogin").setParameter("login", login).getSingleResult();
+    }
 
     public List<User> findAllUsers() {
         return em.createNamedQuery("User.findAll").getResultList();
